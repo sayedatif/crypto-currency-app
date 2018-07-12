@@ -1,0 +1,7 @@
+{
+  "name": "crypto-currency",
+  "displayName": "crypto-currency",
+  "expo": {
+    "sdkVersion": "26.0.0"
+  }
+}
