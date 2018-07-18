@@ -1,3 +1,4 @@
+global.self = global;
 import React from 'react';
 import { Provider } from 'react-redux';
 import RootStack from './src/RootStack';
