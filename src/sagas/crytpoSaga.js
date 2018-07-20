@@ -1,6 +1,7 @@
 import { put, call } from 'redux-saga/effects';
 import { fetchCryptoList } from '../api';
 import dataSource from '../dataSource';
+import { numberWithCommas } from '../utils/helper';
 
 export function* handleFetchCryptoList() {
   const processData = cryptoList => {
@@ -9,8 +10,14 @@ export function* handleFetchCryptoList() {
       return {
         name: cryp.name,
         symbol: cryp.symbol,
-        price: cryp.quotes.USD.price.toFixed(3),
+        price: cryp.quotes.USD.price.toFixed(2),
         slug: cryp.website_slug,
+        change1h: cryp.quotes.USD.percent_change_1h,
+        change7d: cryp.quotes.USD.percent_change_7d,
+        change24h: cryp.quotes.USD.percent_change_24h,
+        marketCap: numberWithCommas(cryp.quotes.USD.market_cap),
+        volume24h: numberWithCommas(cryp.quotes.USD.volume_24h),
+        supply: numberWithCommas(cryp.max_supply),
       };
     });
   }

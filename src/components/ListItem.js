@@ -1,29 +1,30 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
+import IconHandler from './IconHandler';
 import Icons from '@assets/icons';
 
 class ListItem extends React.PureComponent {
-
-  getCryptoIcon = item => {
-    return Icons[item.slug] || Icons['default'];
-  }
-
   render() {
     const { item } = this.props;
     return (
-      <View style={styles.listContainer}>
-        <View style={styles.row}>
-          <Image source={this.getCryptoIcon(item)} style={styles.icon} />
-          <View style={styles.nameBlock}>
-            <Text style={styles.headerText}>{item.name}</Text>
-            <Text style={styles.textColor}>{item.symbol}</Text>
+      <TouchableHighlight onPress={() => this.props.handleCardClick(item)}>
+        <View style={styles.listContainer}>
+          <View style={styles.row}>
+            <IconHandler item={item} />
+            <View style={styles.nameBlock}>
+              <Text style={styles.headerText}>{item.name}</Text>
+              <Text style={styles.textColor}>{item.symbol}</Text>
+            </View>
+          </View>
+          <View style={styles.row}>
+            <View style={[styles.nameBlock, styles.alignRight]}>
+              <Text style={styles.headerText}>${item.price}</Text>
+              <Text style={item.change1h > 0 ? styles.textGreen : styles.textRed}>{item.change1h}%</Text>
+            </View>
+            <IconHandler item={item} source={Icons.next} style={styles.arrowIcon} />
           </View>
         </View>
-        <View style={styles.row}>
-          <Text style={styles.headerText}>${item.price}</Text>
-          <Image source={Icons.next} style={styles.arrowIcon} />
-        </View>
-      </View>
+      </TouchableHighlight>
     );
   }
 }
@@ -34,9 +35,7 @@ const styles = StyleSheet.create({
   listContainer: {
     height: 80,
     borderRadius: 5,
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 20,
+    margin: 10,
     backgroundColor: '#7F81A1',
     padding: 10,
     flex: 1,
@@ -50,10 +49,6 @@ const styles = StyleSheet.create({
   textColor: {
     color: '#fff'
   },
-  icon: {
-    width: 40,
-    height: 40,
-  },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -65,5 +60,14 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginLeft: 10,
+  },
+  alignRight: {
+    alignItems: 'flex-end',
+  },
+  textRed: {
+    color: '#CC0033',
+  },
+  textGreen: {
+    color: '#00FF33',
   }
 })
