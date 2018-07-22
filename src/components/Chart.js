@@ -7,7 +7,7 @@ const Chart = props => {
     <LineChart
       style={{ height: 300 }}
       data={ data }
-      svg={{ stroke: '#fff' }}
+      svg={{ stroke: '#686868' }}
       contentInset={{ top: 20, bottom: 20 }}
     >
       <Grid />

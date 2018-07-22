@@ -4,6 +4,7 @@ import { Text, View, Button, FlatList, StyleSheet } from 'react-native';
 import { handleFetchCryptoList } from './actions';
 import Loader from './components/Loader';
 import ListItem from './components/ListItem';
+import colors from './utils/colors';
 
 class Home extends React.Component {
   static navigationOptions = {
@@ -11,7 +12,7 @@ class Home extends React.Component {
     headerStyle: {
       backgroundColor: '#6540D9',
     },
-    headerTintColor: '#fff',
+    headerTintColor: colors.white,
   };
 
   componentDidMount = () => {
@@ -28,11 +29,13 @@ class Home extends React.Component {
       <View style={styles.appContainer}>
         {cryptoLoading && <Loader />}
         {!cryptoLoading && (
-          <FlatList
-            data={cryptoList}
-            renderItem={({item}) => <ListItem item={item} handleCardClick={data => this.handleCardClick(data)} />}
-            keyExtractor={(item, index) => index.toString()}
-          />
+          <View style={styles.listContainer}>
+            <FlatList
+              data={cryptoList}
+              renderItem={({item, index}) => <ListItem item={item} keyIndex={index} handleCardClick={data => this.handleCardClick(data)} dataLength={cryptoList.length} />}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </View>
         )}
       </View>
     );
@@ -54,6 +57,8 @@ const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#343750',
-  }
+  },
+  listContainer: {
+    margin: 10,
+  },
 })

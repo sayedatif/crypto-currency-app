@@ -1,7 +1,11 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
+import ButtonContainer from './containers/ButtonContainer';
 import IconHandler from './components/IconHandler';
 import Chart from './components/Chart';
+import CryptoButton from './components/CryptoButton';
+import Icons from '@assets/icons';
+import colors from './utils/colors';
 
 export default class DetailsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -10,7 +14,15 @@ export default class DetailsScreen extends React.Component {
       headerStyle: {
         backgroundColor: '#6540D9',
       },
-      headerTintColor: '#fff',
+      headerTintColor: colors.white,
+      headerRight: (
+        <TouchableHighlight onPress={() => navigation.navigate('History')}>
+          <IconHandler
+            source={Icons.history}
+            style={styles.headerIcon}
+          />
+        </TouchableHighlight>
+      ),
     }
   };
 
@@ -54,6 +66,7 @@ export default class DetailsScreen extends React.Component {
             </View>
           ))}
           <Chart />
+          <ButtonContainer />
         </View>
       </View>
     );
@@ -63,30 +76,34 @@ export default class DetailsScreen extends React.Component {
 const styles = StyleSheet.create({
   detailContainer: {
     flex: 1,
-    backgroundColor: '#343750',
     padding: 10
   },
   card: {
     flex: 1,
-    backgroundColor: '#7F81A1',
+    backgroundColor: colors.grey,
   },
   valueText: {
     fontSize: 20,
-    color: '#fff',
+    color: colors.textColor,
   },
   textColor: {
-    color: '#fff',
+    color: colors.textColor,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderColor: '#D1D0DE',
+    borderColor: colors.textColor,
     padding: 10,
   },
   center: {
     flex: 1,
     alignItems: 'center',
+  },
+  headerIcon: {
+    width: 25,
+    height: 25,
+    marginRight: 10,
   }
 })

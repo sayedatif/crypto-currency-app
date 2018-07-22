@@ -5,6 +5,7 @@ const icons = {
   "bitcoin-cash": require('./svg/bch.png'),
   "default": require('./svg/default.png'),
   "next": require('./svg/next.png'),
+  "history": require('./svg/history.png'),
 }
 
 export default icons;

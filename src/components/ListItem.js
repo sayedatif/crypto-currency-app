@@ -2,13 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import IconHandler from './IconHandler';
 import Icons from '@assets/icons';
+import colors from '../utils/colors';
 
 class ListItem extends React.PureComponent {
   render() {
-    const { item } = this.props;
+    const { item, keyIndex, dataLength } = this.props;
     return (
       <TouchableHighlight onPress={() => this.props.handleCardClick(item)}>
-        <View style={styles.listContainer}>
+        <View style={[styles.listContainer, keyIndex === dataLength - 1 ? '' : styles.border]}>
           <View style={styles.row}>
             <IconHandler item={item} />
             <View style={styles.nameBlock}>
@@ -34,20 +35,22 @@ export default ListItem;
 const styles = StyleSheet.create({
   listContainer: {
     height: 80,
-    borderRadius: 5,
-    margin: 10,
-    backgroundColor: '#7F81A1',
     padding: 10,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    backgroundColor: colors.grey,
+  },
+  border: {
+    borderBottomWidth: 1,
+    borderColor: colors.textColor,
   },
   headerText: {
     fontSize: 20,
-    color: '#fff',
+    color: colors.textColor,
   },
   textColor: {
-    color: '#fff'
+    color: colors.textColor
   },
   row: {
     flexDirection: 'row',
