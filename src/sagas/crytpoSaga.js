@@ -1,6 +1,8 @@
 import { put, call } from 'redux-saga/effects';
+import { delay } from 'redux-saga'
 import { fetchCryptoList } from '../api';
 import dataSource from '../dataSource';
+import historySource from '../historySource';
 import { numberWithCommas } from '../utils/helper';
 
 export function* handleFetchCryptoList() {
@@ -32,6 +34,27 @@ export function* handleFetchCryptoList() {
       yield put({ type: 'SET_IS_OFFLINE', data: true });
     }
     yield put({ type: 'SET_CRYPTO_LOADING', data: false });
+  } catch (e) {
+    console.log('e', e);
+  }
+}
+
+export function* handleFetchHistoryList() {
+  const processData = () => {
+    return historySource.map(history => {
+      return {
+        time: history.time,
+        high: history.high.toFixed(2),
+        low: history.low.toFixed(2),
+        close: history.close.toFixed(2),
+      }
+    })
+  }
+  try {
+    yield put({ type: 'SET_HISTORY_LOADING', data: true });
+    yield delay(1000);
+    yield put({ type: 'SET_HISTORY_LIST', data: processData() });
+    yield put({ type: 'SET_HISTORY_LOADING', data: false });
   } catch (e) {
     console.log('e', e);
   }

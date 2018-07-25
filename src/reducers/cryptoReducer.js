@@ -1,9 +1,17 @@
-import { SET_CRYPTO_LOADING, SET_CRYPTO_LIST, SET_IS_OFFLINE } from '../actions';
+import {
+  SET_CRYPTO_LOADING,
+  SET_CRYPTO_LIST,
+  SET_IS_OFFLINE,
+  SET_HISTORY_LOADING,
+  SET_HISTORY_LIST,
+} from '../actions';
 
 const initialState = {
   cryptoList: [],
   cryptoLoading: false,
   isOffline: false,
+  historyList: [],
+  historyLoading: false,
 };
 
 const cryptoReducer = (state = initialState, { type, data }) => {
@@ -22,6 +30,16 @@ const cryptoReducer = (state = initialState, { type, data }) => {
       return {
         ...state,
         isOffline: data,
+      }
+    case SET_HISTORY_LOADING:
+      return {
+        ...state,
+        historyLoading: data,
+      }
+    case SET_HISTORY_LIST:
+      return {
+        ...state,
+        historyList: data,
       }
     default:
       return state;

@@ -26,6 +26,10 @@ export default class DetailsScreen extends React.Component {
     }
   };
 
+  handleButtonPress = type => {
+    this.props.navigation.navigate('Transact');
+  }
+
   render() {
     const { state } = this.props.navigation;
     const rowData = [{
@@ -66,7 +70,7 @@ export default class DetailsScreen extends React.Component {
             </View>
           ))}
           <Chart />
-          <ButtonContainer />
+          <ButtonContainer buttonPress={this.handleButtonPress} />
         </View>
       </View>
     );

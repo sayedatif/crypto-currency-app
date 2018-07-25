@@ -6,8 +6,8 @@ class ButtonContainer extends React.PureComponent {
   render() {
     return (
       <View style={styles.btnContainer}>
-        <CryptoButton title="Receive" />
-        <CryptoButton title="Send" />
+        <CryptoButton title="Receive" onPress={() => this.props.buttonPress('receive')} />
+        <CryptoButton title="Send" onPress={() => this.props.buttonPress('send')} />
       </View>
     );
   }

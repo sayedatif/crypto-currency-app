@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 const CryptoButton = props => {
   const { title } = props;
   return (
-    <TouchableOpacity style={title === 'Send' ? styles.sendBtn : styles.receiveBtn}>
+    <TouchableOpacity style={title === 'Send' ? styles.sendBtn : styles.receiveBtn} onPress={props.onPress}>
       <Text style={title === 'Send' ? styles.sendClr : styles.receiveClr}>{title}</Text>
     </TouchableOpacity>
   );
