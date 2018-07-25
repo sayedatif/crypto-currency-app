@@ -10,7 +10,7 @@ class HistoryScreen extends React.Component {
   static navigationOptions = {
     title: 'History',
     headerStyle: {
-      backgroundColor: '#6540D9',
+      backgroundColor: colors.headerColor,
     },
     headerTintColor: colors.white,
   };

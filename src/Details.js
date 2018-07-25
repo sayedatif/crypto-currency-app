@@ -6,8 +6,11 @@ import Chart from './components/Chart';
 import CryptoButton from './components/CryptoButton';
 import Icons from '@assets/icons';
 import colors from './utils/colors';
+import ReceiveContainer from './containers/ReceiveContainer';
+import { connect } from 'react-redux';
+import { setReceiveVisible } from './actions'
 
-export default class DetailsScreen extends React.Component {
+class DetailsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.getParam('name'),
@@ -27,11 +30,20 @@ export default class DetailsScreen extends React.Component {
   };
 
   handleButtonPress = type => {
-    this.props.navigation.navigate('Transact');
+    if (type === 'receive') {
+      this.props.setReceiveVisible(true);
+    } else {
+      const data = {
+        type,
+        name: this.props.navigation.getParam('name'),
+      }
+      this.props.navigation.navigate('Transact', data);
+    }
   }
 
   render() {
-    const { state } = this.props.navigation;
+    const { receiveVisible, navigation } = this.props;
+    const { state } = navigation;
     const rowData = [{
       name: 'Market cap',
       value: `$${state.params.marketCap}`
@@ -47,6 +59,10 @@ export default class DetailsScreen extends React.Component {
     }]
     return (
       <View style={styles.detailContainer}>
+        <ReceiveContainer
+          visible={receiveVisible}
+          handleClose={this.props.setReceiveVisible}
+        />
         <View style={styles.card}>
           <View style={styles.row}>
             <View style={styles.center}>
@@ -76,6 +92,16 @@ export default class DetailsScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  receiveVisible: state.crypto.receiveVisible
+});
+
+const mapDispatchToProps = dispatch => ({
+  setReceiveVisible: val => dispatch(setReceiveVisible(val))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsScreen)
 
 const styles = StyleSheet.create({
   detailContainer: {

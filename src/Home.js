@@ -10,7 +10,7 @@ class Home extends React.Component {
   static navigationOptions = {
     title: 'Crypto',
     headerStyle: {
-      backgroundColor: '#6540D9',
+      backgroundColor: colors.headerColor,
     },
     headerTintColor: colors.white,
   };

@@ -4,6 +4,7 @@ import {
   SET_IS_OFFLINE,
   SET_HISTORY_LOADING,
   SET_HISTORY_LIST,
+  SET_RECEIVE_VISIBLE,
 } from '../actions';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   isOffline: false,
   historyList: [],
   historyLoading: false,
+  receiveVisible: false,
 };
 
 const cryptoReducer = (state = initialState, { type, data }) => {
@@ -40,6 +42,11 @@ const cryptoReducer = (state = initialState, { type, data }) => {
       return {
         ...state,
         historyList: data,
+      }
+    case SET_RECEIVE_VISIBLE:
+      return {
+        ...state,
+        receiveVisible: data
       }
     default:
       return state;
